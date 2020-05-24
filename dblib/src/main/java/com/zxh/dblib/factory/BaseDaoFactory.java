@@ -37,5 +37,16 @@ public class BaseDaoFactory {
         }
         return baseDao;
     }
-
+    public <T extends BaseDao<M>,M> T getBaseDao(Class<T> daoClass, Class<M> entityClass){
+        BaseDao baseDao=null;
+        try {
+            baseDao=daoClass.newInstance();
+            baseDao.init(sqLiteDataBase,entityClass);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+        return (T) baseDao;
+    }
 }

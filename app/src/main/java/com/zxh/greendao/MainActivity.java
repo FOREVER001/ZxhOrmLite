@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.zxh.dblib.db.BaseDao;
+import com.zxh.dblib.db.OrderDao;
 import com.zxh.dblib.factory.BaseDaoFactory;
 
 import java.util.List;
@@ -50,9 +51,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void delete(View view) {
-        BaseDao<User> baseDao = BaseDaoFactory.getInstance(sqlitePath).getBaseDao(User.class);
+//        BaseDao<User> baseDao = BaseDaoFactory.getInstance(sqlitePath).getBaseDao(User.class);
+//        User where=new User();
+//        where.setId(2);
+//        baseDao.delete(where);
+
+        OrderDao orderDao = BaseDaoFactory.getInstance(sqlitePath).getBaseDao(OrderDao.class, User.class);
         User where=new User();
         where.setId(2);
-        baseDao.delete(where);
+        orderDao.delete(where);
     }
 }
