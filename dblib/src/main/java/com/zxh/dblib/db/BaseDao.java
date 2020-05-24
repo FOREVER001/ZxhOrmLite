@@ -57,10 +57,8 @@ public class BaseDao<T> implements IBaseDao<T> {
         String sql = "select * from " + tabName + " limit 1,0";//将表的结构取出来
         Cursor cursor = mSQLiteDatabase.rawQuery(sql, null);
         String[] columnNames = cursor.getColumnNames();
-        Log.e("===columnNames=11======", columnNames.length + "");
         //获取所有的成员变量
         Field[] columnFields = entityClass.getDeclaredFields();
-        Log.e("===columnFields=11====", columnFields.length + "");
         for (Field columnField : columnFields) {
             columnField.setAccessible(true);
         }
@@ -82,7 +80,6 @@ public class BaseDao<T> implements IBaseDao<T> {
                 cacheMap.put(columnName, columField);
             }
         }
-        Log.e("===cacheMap=11======", cacheMap.size() + "");
     }
 
     private String getCreateTableSql() {
@@ -91,7 +88,6 @@ public class BaseDao<T> implements IBaseDao<T> {
         sb.append(tabName + "(");
         //反射得到所以的成员变量
         Field[] fields = entityClass.getDeclaredFields();
-        Log.e("===entityClass=======", fields.length + "");
         for (Field field : fields) {
             field.setAccessible(true);
             Class type = field.getType();
@@ -192,12 +188,19 @@ public class BaseDao<T> implements IBaseDao<T> {
 
     @Override
     public long update(T entity, T where) {
-        return 0;
+        Map<String, String> map = getValues(entity);
+        ContentValues values = getContentValues(map);
+        Map<String, String> whereMap = getValues(where);
+        Conditation conditation = new Conditation(whereMap);
+        return mSQLiteDatabase.update(tabName, values, conditation.whereCause, conditation.whereArgs);
+
     }
 
     @Override
     public int delete(T where) {
-        return 0;
+        Map<String, String> whereMap = getValues(where);
+        Conditation conditation = new Conditation(whereMap);
+        return mSQLiteDatabase.delete(tabName,conditation.whereCause,conditation.whereArgs);
     }
 
     @Override
@@ -230,7 +233,6 @@ public class BaseDao<T> implements IBaseDao<T> {
             try {
                 item = obj.getClass().newInstance(); //等同于user=new User(); user.setId(cursor,getId)
                 Iterator iterator = cacheMap.entrySet().iterator();//c成员变量
-                Log.e("===cacheMap===", cacheMap.size() + "");
                 while (iterator.hasNext()) {
                     Map.Entry entry = (Map.Entry) iterator.next();
                     //获取列表

@@ -33,11 +33,26 @@ public class MainActivity extends AppCompatActivity {
     public void query(View view) {
         BaseDao<User> baseDao = BaseDaoFactory.getInstance(sqlitePath).getBaseDao(User.class);
         User user=new User();
-        user.setName("jack");
         List<User> query = baseDao.query(user);
         Log.e("====query==size=",query.size()+"");
         for (int i = 0; i < query.size(); i++) {
             Log.e("====query===",query.get(i).toString());
         }
+    }
+
+    public void update(View view) {
+        BaseDao<User> baseDao = BaseDaoFactory.getInstance(sqlitePath).getBaseDao(User.class);
+        User user=new User();
+        user.setName("张三");
+        User where=new User();
+        where.setId(2);
+        baseDao.update(user,where);
+    }
+
+    public void delete(View view) {
+        BaseDao<User> baseDao = BaseDaoFactory.getInstance(sqlitePath).getBaseDao(User.class);
+        User where=new User();
+        where.setId(2);
+        baseDao.delete(where);
     }
 }
