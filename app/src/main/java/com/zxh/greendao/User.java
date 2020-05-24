@@ -5,23 +5,23 @@ import com.zxh.dblib.annotation.DBTable;
 
 @DBTable("tb_user")
 public class User {
-    private int id;
+    private Integer id;
     @DBFiled("tb_name")
     private String name;
 
     public User() {
     }
 
-    public User(int id, String name) {
+    public User(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -31,5 +31,13 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

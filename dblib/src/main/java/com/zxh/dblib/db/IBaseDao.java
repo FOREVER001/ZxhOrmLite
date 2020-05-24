@@ -1,5 +1,7 @@
 package com.zxh.dblib.db;
 
+import java.util.List;
+
 /**
  * 数据库操作接口
  * @param <T>
@@ -23,5 +25,7 @@ public interface IBaseDao<T> {
      * @param entity
      * @return
      */
-    int delete(T entity);
+    int delete(T where);
+    List<T> query(T where);
+    List<T> query(T where,String orderBy,Integer startIndex,Integer limit);
 }
