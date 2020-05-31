@@ -8,6 +8,15 @@ public class User {
     private Integer id;
     @DBFiled("tb_name")
     private String name;
+    private Integer status;
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
     public User() {
     }
@@ -38,6 +47,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", status=" + status +
                 '}';
     }
 }

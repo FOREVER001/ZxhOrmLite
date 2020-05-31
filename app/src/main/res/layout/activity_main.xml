@@ -29,4 +29,14 @@
         android:layout_height="wrap_content"
         android:text="删除"
         android:onClick="delete" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="登录"
+        android:onClick="login" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="分库"
+        android:onClick="subDb" />
 </LinearLayout>
